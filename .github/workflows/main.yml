@@ -1,4 +1,4 @@
-name: 🚀 Deploy to bikrihoy.com on push
+name: 🚀 Deploy to live on push
 on:
  push:
   branches: main
@@ -14,6 +14,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.paleturquoise-deer-392174.hostingersite.com
-        username: u260743870.somoti
+        server: ftp.smti.e-businessclinic.com
+        username: u260743870.somiti
         password: ${{ secrets.FTP_PASSWORD }}
