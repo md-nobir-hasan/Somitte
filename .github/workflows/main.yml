@@ -1,7 +1,7 @@
 name: 🚀 Deploy to bikrihoy.com on push
 on:
  push:
-  branches: bikrihoy.com
+  branches: main
 
 jobs:
   web-deploy:
