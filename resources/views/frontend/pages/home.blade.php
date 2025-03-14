@@ -6,21 +6,55 @@
 <main>
 
     <!-- hero slider section -->
-    <section>
+    <section class="relative">
         <div x-data="{
                 activeSlide: 0,
+                autoplay: null,
                 slides: [
                     {
+                        image: '{{asset("asset/images/default/sliders/idaho239691_1920.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
+                        image: '{{asset("asset/images/default/sliders/hd1.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
+                        image: '{{asset("asset/images/default/sliders/hd2.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
+                        image: '{{asset("asset/images/default/sliders/hd3.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
+                        image: '{{asset("asset/images/default/sliders/hd4.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
                         image: 'https://wowslider.com/sliders/demo-9/data/images/1293441583_nature_forest_morning_in_the_forest_015232_.jpg',
-                        title: 'Beautiful Nature'
+                        title: 'Beautiful Nature',
+                        subtitle: 'Explore the wonders of our natural world'
                     },
                     {
                         image: 'https://www.jssor.com/demos/img/gallery/980x380/013.jpg',
-                        title: 'City Lights'
+                        title: 'City Lights',
+                        subtitle: 'Experience urban life at its finest'
                     },
                     {
                         image: 'https://wowslider.com/sliders/demo-37/data1/images/waterfall.jpg',
-                        title: 'Snowy Peaks'
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+                    {
+                        image: '{{asset("asset/images/default/sliders/s1-1222x587.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
                     }
                 ],
                 next() {
@@ -28,10 +62,20 @@
                 },
                 prev() {
                     this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+                },
+                startAutoplay() {
+                    this.autoplay = setInterval(() => this.next(), 5000);
+                },
+                stopAutoplay() {
+                    clearInterval(this.autoplay);
                 }
-            }" class="relative h-96 overflow-hidden">
+            }"
+            x-init="startAutoplay()"
+            @mouseenter="stopAutoplay()"
+            @mouseleave="startAutoplay()"
+            class="relative h-[500px] overflow-hidden">
 
-            <!-- Slides -->
+            <!-- Slides with enhanced transitions -->
             <template x-for="(slide, index) in slides" :key="index">
                 <div
                     x-show="activeSlide === index"
@@ -43,46 +87,92 @@
                     x-transition:leave-end="opacity-0"
                     class="absolute inset-0 w-full h-full"
                 >
-                    <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <h2 x-text="slide.title" class="text-white text-4xl font-bold"></h2>
+                    <!-- Image without zoom animation that might cause blur -->
+                    <img
+                        :src="slide.image"
+                        :alt="slide.title"
+                        class="w-full h-full object-cover"
+                        loading="eager"
+                    >
+
+                    <!-- Lighter gradient overlay for better image visibility -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent">
+                        <!-- Text content with animation -->
+                        <div class="absolute bottom-0 left-0 w-full p-8 md:p-16 text-white">
+                            <h2
+                                x-text="slide.title"
+                                x-show="activeSlide === index"
+                                x-transition:enter="transition ease-out delay-300 duration-700"
+                                x-transition:enter-start="opacity-0 transform translate-y-8"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                class="text-4xl md:text-5xl font-bold mb-2"
+                            ></h2>
+                            <p
+                                x-text="slide.subtitle"
+                                x-show="activeSlide === index"
+                                x-transition:enter="transition ease-out delay-500 duration-700"
+                                x-transition:enter-start="opacity-0 transform translate-y-8"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                class="text-xl text-gray-200 max-w-xl"
+                            ></p>
+                        </div>
                     </div>
                 </div>
             </template>
 
-            <!-- Navigation Buttons -->
-            <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/75">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- Enhanced Navigation Buttons -->
+            <button @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full hover:bg-white/40 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
             </button>
-            <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 p-2 rounded-full hover:bg-white/75">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button @click="next()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full hover:bg-white/40 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
             </button>
 
-            <!-- Pagination -->
-            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+            <!-- Enhanced Pagination -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3">
                 <template x-for="(slide, index) in slides" :key="index">
                     <button
                         @click="activeSlide = index"
-                        :class="{'bg-white': activeSlide === index, 'bg-white/50': activeSlide !== index}"
-                        class="w-3 h-3 rounded-full transition-colors duration-300"
+                        :class="{'w-10 bg-white': activeSlide === index, 'w-3 bg-white/50': activeSlide !== index}"
+                        class="h-3 rounded-full transition-all duration-500 hover:bg-white/80 focus:outline-none"
                     ></button>
                 </template>
             </div>
         </div>
     </section>
 
-    <!-- Compact News Marquee -->
-    <section class="bg-gray-800 py-3">
-        <div class="overflow-hidden whitespace-nowrap">
+    <!-- Enhanced News Marquee -->
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-600 py-4 relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-[5%] w-20 h-20 rounded-full bg-white animate-ping-slow"></div>
+            <div class="absolute bottom-0 left-[15%] w-16 h-16 rounded-full bg-white animate-ping-slow-2"></div>
+            <div class="absolute top-[20%] right-[10%] w-12 h-12 rounded-full bg-white animate-ping-slow-3"></div>
+        </div>
+
+        <!-- News content -->
+        <div class="overflow-hidden whitespace-nowrap relative">
             <div class="inline-block animate-marquee whitespace-nowrap">
-                <span class="text-white mx-4">🚀 New Product Launch: Discover our latest innovation!</span>
-                <span class="text-white mx-4">🏆 Won Best Innovation Award 2023</span>
-                <span class="text-white mx-4">🎉 1 Million Happy Customers and Counting!</span>
-                <span class="text-white mx-4">🌟 Special Offer: Get 20% off on all products</span>
+                <span class="text-white mx-6 text-lg font-medium inline-flex items-center">
+                    <span class="bg-white text-indigo-600 p-1 rounded-full mr-3 flex-shrink-0">🚀</span>
+                    New Product Launch: Discover our latest innovation!
+                </span>
+                <span class="text-white mx-6 text-lg font-medium inline-flex items-center">
+                    <span class="bg-white text-indigo-600 p-1 rounded-full mr-3 flex-shrink-0">🏆</span>
+                    Won Best Innovation Award 2023
+                </span>
+                <span class="text-white mx-6 text-lg font-medium inline-flex items-center">
+                    <span class="bg-white text-indigo-600 p-1 rounded-full mr-3 flex-shrink-0">🎉</span>
+                    1 Million Happy Customers and Counting!
+                </span>
+                <span class="text-white mx-6 text-lg font-medium inline-flex items-center">
+                    <span class="bg-white text-indigo-600 p-1 rounded-full mr-3 flex-shrink-0">🌟</span>
+                    Special Offer: Get 20% off on all products
+                </span>
             </div>
         </div>
     </section>
@@ -532,5 +622,35 @@
         .animate-spin-medium-reverse { animation: spin-medium-reverse 12s infinite linear; }
         .animate-move-square { animation: move-square 10s infinite ease-in-out; }
         .animate-move-triangle { animation: move-triangle 8s infinite ease-in-out; }
+
+        /* Hero slider animations */
+        @keyframes slow-zoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .animate-slow-zoom {
+            animation: slow-zoom 10s infinite alternate ease-in-out;
+        }
+
+        /* News marquee animations */
+        @keyframes ping-slow {
+            0%, 100% { transform: scale(0.8); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+        }
+
+        @keyframes ping-slow-2 {
+            0%, 100% { transform: scale(0.7); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        @keyframes ping-slow-3 {
+            0%, 100% { transform: scale(0.9); opacity: 0.2; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+        }
+
+        .animate-ping-slow { animation: ping-slow 4s infinite ease-in-out; }
+        .animate-ping-slow-2 { animation: ping-slow-2 5s infinite ease-in-out; }
+        .animate-ping-slow-3 { animation: ping-slow-3 6s infinite ease-in-out; }
     </style>
 @endpush
