@@ -219,147 +219,32 @@
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Our Association Members</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Member Card -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
+                <!-- Members Card -->
+                @foreach ([1,2,3,4,5,6,7,8,9,10] as $item)
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                        <!-- Image -->
+                        <div class="relative h-64 overflow-hidden">
+                            <img
+                                src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
+                                alt="Member Name"
+                                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+                            >
+                            <div class="absolute inset-0 bg-black/20"></div>
+                        </div>
 
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
+                        <!-- Content -->
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
+                            <p class="text-gray-600 font-medium">Co-moderator</p>
+                            <p class="text-sm text-gray-500">IT Department</p>
+                        </div>
                     </div>
-                </div>
-                <!-- Repeat for other members -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div><div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div><div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div><div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div><div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    <!-- Image -->
-                    <div class="relative h-64 overflow-hidden">
-                        <img
-                            src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg"
-                            alt="Member Name"
-                            class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        >
-                        <div class="absolute inset-0 bg-black/20"></div>
-                    </div>
-
-                    <!-- Content -->
-                    <div class="p-6 text-center">
-                        <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
-                        <p class="text-gray-600 font-medium">Software Engineer</p>
-                        <p class="text-sm text-gray-500">IT Department</p>
-                    </div>
-                </div>
+                @endforeach
+            </div>
+            <div class="flex justify-center mt-8">
+                <a href="{{route('frontend.association_members')}}" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition-colors duration-300">
+                    View All Members
+                </a>
             </div>
         </div>
     </section>

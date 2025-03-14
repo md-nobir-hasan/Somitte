@@ -10,4 +10,9 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.home');
     }
+
+    public function associationMembers()
+    {
+        return view('frontend.pages.association_members');
+    }
 }
