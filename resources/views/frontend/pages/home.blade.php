@@ -12,15 +12,16 @@
                 autoplay: null,
                 slides: [
                     {
-                        image: '{{asset("asset/images/default/sliders/idaho239691_1920.jpg")}}',
-                        title: 'Snowy Peaks',
-                        subtitle: 'Discover breathtaking mountain landscapes'
-                    },
-                    {
                         image: '{{asset("asset/images/default/sliders/hd1.jpg")}}',
                         title: 'Snowy Peaks',
                         subtitle: 'Discover breathtaking mountain landscapes'
                     },
+                    {
+                        image: '{{asset("asset/images/default/sliders/idaho239691_1920.jpg")}}',
+                        title: 'Snowy Peaks',
+                        subtitle: 'Discover breathtaking mountain landscapes'
+                    },
+
                     {
                         image: '{{asset("asset/images/default/sliders/hd2.jpg")}}',
                         title: 'Snowy Peaks',
@@ -266,15 +267,17 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 <!-- Batch Numbers -->
                 @for ($year = 2007; $year <= date('Y'); $year++)
-                    <div class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group">
-                        <!-- Batch Content -->
-                        <div class="relative p-6 text-center bg-white/80 backdrop-blur-sm">
-                            <div class="text-3xl font-bold text-indigo-600 mb-2 transform transition-transform duration-300 group-hover:scale-110">
-                                {{ $year }}
+                    <a href="{{route('frontend.batch_wise_members', $year)}}">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group">
+                            <!-- Batch Content -->
+                            <div class="relative p-6 text-center bg-white/80 backdrop-blur-sm">
+                                <div class="text-3xl font-bold text-indigo-600 mb-2 transform transition-transform duration-300 group-hover:scale-110">
+                                    {{ $year }}
+                                </div>
+                                <div class="text-sm text-gray-500">Batch</div>
                             </div>
-                            <div class="text-sm text-gray-500">Batch</div>
                         </div>
-                    </div>
+                    </a>
                 @endfor
             </div>
         </div>
@@ -292,37 +295,48 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Occupation Wise Members</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Private -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">Private</h3>
-                        <p class="text-gray-600">Members working in private sectors</p>
-                        <div class="mt-6 text-4xl font-bold text-gray-800">1,234</div>
+                <a href="{{route('frontend.occupation_wise_members', 'private')}}">
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-4">Private</h3>
+                            <p class="text-gray-600">Members working in private sectors</p>
+                            <div class="mt-6 text-4xl font-bold text-gray-800">1,234</div>
+                        </div>
                     </div>
-                </div>
+                </a>
+
                 <!-- Govt. -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-green-600 mb-4">Govt.</h3>
-                        <p class="text-gray-600">Members working in government sectors</p>
-                        <div class="mt-6 text-4xl font-bold text-gray-800">567</div>
+                <a href="{{route('frontend.occupation_wise_members', 'govt')}}">
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold text-green-600 mb-4">Govt.</h3>
+                            <p class="text-gray-600">Members working in government sectors</p>
+                            <div class="mt-6 text-4xl font-bold text-gray-800">567</div>
+                        </div>
                     </div>
-                </div>
+                </a>
+
                 <!-- Business -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-orange-600 mb-4">Business</h3>
-                        <p class="text-gray-600">Members involved in business</p>
-                        <div class="mt-6 text-4xl font-bold text-gray-800">890</div>
+                <a href="{{route('frontend.occupation_wise_members', 'business')}}">
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold text-orange-600 mb-4">Business</h3>
+                            <p class="text-gray-600">Members involved in business</p>
+                            <div class="mt-6 text-4xl font-bold text-gray-800">890</div>
+                        </div>
                     </div>
-                </div>
+                </a>
+
                 <!-- None -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-purple-600 mb-4">None</h3>
-                        <p class="text-gray-600">Members without specific occupation</p>
-                        <div class="mt-6 text-4xl font-bold text-gray-800">321</div>
+                <a href="{{route('frontend.occupation_wise_members', 'none')}}">
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden">
+                        <div class="p-6 text-center">
+                            <h3 class="text-2xl font-bold text-purple-600 mb-4">None</h3>
+                            <p class="text-gray-600">Members without specific occupation</p>
+                            <div class="mt-6 text-4xl font-bold text-gray-800">321</div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>

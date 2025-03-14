@@ -16,4 +16,16 @@ class FrontendController extends Controller
         $n['members'] = ['nobir', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad'];
         return view('frontend.pages.association_members', $n);
     }
+
+    public function batchMembers($year)
+    {
+        $n['members'] = ['nobir', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad'];
+        return view('frontend.pages.association_members', $n);
+    }
+
+    public function occupationMembers($occupation)
+    {
+        $n['members'] = ['nobir', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad'];
+        return view('frontend.pages.association_members', $n);
+    }
 }
