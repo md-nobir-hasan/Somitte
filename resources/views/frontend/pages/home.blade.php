@@ -88,11 +88,42 @@
     </section>
 
     <!-- Association member section -->
-    <section class="relative py-20 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
-        <!-- Background Animation -->
-        <div class="absolute inset-0">
-            <div class="absolute w-64 h-64 bg-purple-200 rounded-full opacity-20 animate-move-circle-1"></div>
-            <div class="absolute w-48 h-48 bg-blue-200 rounded-full opacity-20 animate-move-circle-2"></div>
+    <section class="relative py-20 overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 -z-10">
+            <!-- Gradient base - more vibrant and attractive colors -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100"></div>
+
+            <!-- Animated elements -->
+            <div class="absolute w-full h-full overflow-hidden">
+                <!-- Floating circles - more vibrant colors -->
+                <div class="absolute w-72 h-72 bg-indigo-300 rounded-full opacity-40 animate-float-fast-1" style="top: 10%; left: 5%;"></div>
+                <div class="absolute w-56 h-56 bg-cyan-300 rounded-full opacity-40 animate-float-fast-2" style="top: 20%; right: 10%;"></div>
+                <div class="absolute w-80 h-80 bg-violet-300 rounded-full opacity-35 animate-float-fast-3" style="bottom: 15%; left: 15%;"></div>
+
+                <!-- Blurred shapes - more vibrant colors -->
+                <div class="absolute w-96 h-96 bg-fuchsia-200 rounded-full blur-xl opacity-50 animate-pulse-fast" style="top: -10%; right: -5%;"></div>
+                <div class="absolute w-[30rem] h-[30rem] bg-sky-200 rounded-full blur-xl opacity-50 animate-pulse-fast-2" style="bottom: -15%; left: -10%;"></div>
+
+                <!-- Particle grid - brighter particles -->
+                <div class="absolute inset-0 opacity-30">
+                    <div class="grid grid-cols-12 grid-rows-8 h-full">
+                        @for ($i = 0; $i < 96; $i++)
+                            <div class="relative">
+                                <div class="absolute w-2 h-2 bg-violet-500 rounded-full animate-twinkle-fast-{{$i % 5 + 1}}"></div>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+
+                <!-- Additional decorative elements - more vibrant colors -->
+                <div class="absolute w-40 h-40 border-4 border-sky-300 rounded-full opacity-40 animate-spin-medium" style="top: 30%; left: 30%;"></div>
+                <div class="absolute w-32 h-32 border-4 border-fuchsia-300 rounded-full opacity-40 animate-spin-medium-reverse" style="bottom: 25%; right: 20%;"></div>
+
+                <!-- Geometric shapes - more vibrant colors -->
+                <div class="absolute w-24 h-24 bg-cyan-300 opacity-40 animate-move-square" style="top: 15%; right: 25%; transform: rotate(45deg);"></div>
+                <div class="absolute w-20 h-20 bg-violet-300 opacity-40 animate-move-triangle" style="bottom: 20%; left: 30%; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"></div>
+            </div>
         </div>
 
         <div class="container mx-auto px-4 relative z-10">
@@ -128,7 +159,6 @@
                         >
                         <div class="absolute inset-0 bg-black/20"></div>
                     </div>
-
                     <!-- Content -->
                     <div class="p-6 text-center">
                         <h3 class="text-xl font-semibold mb-1 text-gray-800">John Doe</h3>
@@ -399,5 +429,108 @@
         .animate-rotate-star-4 { animation: rotateStar4 14s infinite linear; }
         .animate-rotate-star-5 { animation: rotateStar5 8s infinite linear; }
         .animate-rotate-star-6 { animation: rotateStar6 16s infinite linear; }
+
+        /* New animated background styles */
+        @keyframes float-fast-1 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, 20px) rotate(8deg); }
+            50% { transform: translate(10px, 40px) rotate(0deg); }
+            75% { transform: translate(-20px, 20px) rotate(-8deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes float-fast-2 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-25px, 15px) rotate(-10deg); }
+            50% { transform: translate(-35px, -20px) rotate(-5deg); }
+            75% { transform: translate(-15px, -40px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes float-fast-3 {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(5deg); }
+            50% { transform: translate(40px, 10px) rotate(10deg); }
+            75% { transform: translate(15px, 35px) rotate(3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        @keyframes pulse-fast {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+            50% { transform: scale(1.1) translate(20px, -20px); opacity: 0.6; }
+            100% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+        }
+
+        @keyframes pulse-fast-2 {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+            50% { transform: scale(1.15) translate(-25px, 15px); opacity: 0.6; }
+            100% { transform: scale(1) translate(0, 0); opacity: 0.4; }
+        }
+
+        @keyframes twinkle-fast-1 {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.5); }
+        }
+
+        @keyframes twinkle-fast-2 {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        @keyframes twinkle-fast-3 {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.6); }
+        }
+
+        @keyframes twinkle-fast-4 {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.3); }
+        }
+
+        @keyframes twinkle-fast-5 {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.4); }
+        }
+
+        @keyframes spin-medium {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-medium-reverse {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        @keyframes move-square {
+            0% { transform: translate(0, 0) rotate(45deg); }
+            25% { transform: translate(-30px, 20px) rotate(90deg); }
+            50% { transform: translate(0, 40px) rotate(135deg); }
+            75% { transform: translate(30px, 20px) rotate(180deg); }
+            100% { transform: translate(0, 0) rotate(225deg); }
+        }
+
+        @keyframes move-triangle {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(25px, -15px) rotate(30deg); }
+            50% { transform: translate(40px, 0) rotate(0deg); }
+            75% { transform: translate(25px, 15px) rotate(-30deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .animate-float-fast-1 { animation: float-fast-1 8s infinite ease-in-out; }
+        .animate-float-fast-2 { animation: float-fast-2 9s infinite ease-in-out; }
+        .animate-float-fast-3 { animation: float-fast-3 7s infinite ease-in-out; }
+        .animate-pulse-fast { animation: pulse-fast 5s infinite ease-in-out; }
+        .animate-pulse-fast-2 { animation: pulse-fast-2 6s infinite ease-in-out; }
+        .animate-twinkle-fast-1 { animation: twinkle-fast-1 1.5s infinite ease-in-out; }
+        .animate-twinkle-fast-2 { animation: twinkle-fast-2 2s infinite ease-in-out; }
+        .animate-twinkle-fast-3 { animation: twinkle-fast-3 2.5s infinite ease-in-out; }
+        .animate-twinkle-fast-4 { animation: twinkle-fast-4 1.8s infinite ease-in-out; }
+        .animate-twinkle-fast-5 { animation: twinkle-fast-5 2.2s infinite ease-in-out; }
+        .animate-spin-medium { animation: spin-medium 15s infinite linear; }
+        .animate-spin-medium-reverse { animation: spin-medium-reverse 12s infinite linear; }
+        .animate-move-square { animation: move-square 10s infinite ease-in-out; }
+        .animate-move-triangle { animation: move-triangle 8s infinite ease-in-out; }
     </style>
 @endpush
