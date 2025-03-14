@@ -13,6 +13,7 @@ class FrontendController extends Controller
 
     public function associationMembers()
     {
-        return view('frontend.pages.association_members');
+        $n['members'] = ['nobir', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad'];
+        return view('frontend.pages.association_members', $n);
     }
 }
