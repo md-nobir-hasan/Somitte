@@ -32,8 +32,8 @@ class FrontendRegisterRequest extends FormRequest
            'phone' => 'required|string|max:255',
            'whatsapp' => 'required|string|max:255|unique:users',
            'email' => 'required|string|email|max:255|unique:users',
-           'password' => 'required|string|min:6|confirmed',
-           'confirm_password' => 'required|string|min:6|same:password',
+           'password' => 'required|string|min:6',
+           'password_confirmation' => 'required|string|min:6|same:password',
            'designation' => 'required|string|max:255',
            'department' => 'required|string|max:255',
         ];
