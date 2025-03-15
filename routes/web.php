@@ -8,6 +8,8 @@ Route::group( [],function () {
     //Without auth
     Route::get('/', [FrontendController::class, 'homePage'])->name('home');
     Route::get('/login', [LoginRegisterController::class, 'loginPage'])->name('login');
+    // Login routes
+Route::post('/login/request-otp', [LoginRegisterController::class, 'requestOtp'])->name('login.request-otp');
     Route::post('/login', [LoginRegisterController::class, 'loginAuthenticate'])->name('login.authenticate');
     Route::get('/register', [LoginRegisterController::class, 'registerPage'])->name('register');
     Route::post('/register', [LoginRegisterController::class, 'registerAuthenticate'])->name('register.authenticate');
@@ -21,3 +23,5 @@ Route::group( [],function () {
         Route::get('/occupation-wise-members/{occupation}', [FrontendController::class, 'occupationMembers'])->name('occupation_wise_members');
     });
 });
+
+

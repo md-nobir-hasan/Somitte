@@ -9,7 +9,52 @@
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="w-full max-w-md" x-data="{ isPasswordVisible: false, isOtpMode: false, isLoading: false }">
+        <div class="w-full max-w-md" x-data="{
+            isPasswordVisible: false,
+            isOtpMode: false,
+            isLoading: false,
+            otpSent: false,
+            otpMessage: '',
+            otpError: '',
+            async requestOtp() {
+                this.isLoading = true;
+                this.otpError = '';
+                this.otpMessage = '';
+
+                const whatsapp = document.getElementById('whatsapp').value;
+                if (!whatsapp) {
+                    this.otpError = 'Please enter your WhatsApp number';
+                    this.isLoading = false;
+                    return;
+                }
+
+                try {
+                    const response = await fetch('{{ route('login.request-otp') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+                        },
+                        body: JSON.stringify({ whatsapp })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        this.otpSent = true;
+                        this.otpMessage = result.message || 'OTP sent successfully to your WhatsApp';
+                    } else {
+                        this.otpError = result.error || 'Failed to send OTP. Please try again.';
+                    }
+                } catch (error) {
+                    this.otpError = 'An error occurred. Please try again.';
+                }
+
+                this.isLoading = false;
+            }
+        }">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+
             <!-- Card Container -->
             <div class="bg-white rounded-xl shadow-xl overflow-hidden">
                 <!-- Header with Background -->
@@ -20,14 +65,14 @@
 
                 <!-- Login Form -->
                 <div class="p-6">
-                    <form action="{{ route('login.authenticate') }}" method="POST" @submit="isLoading = true">
+                    <form action="{{ route('login.authenticate') }}" method="POST" @submit="!isOtpMode || otpSent ? isLoading = true : $event.preventDefault()">
                         @csrf
 
                         <!-- Toggle between WhatsApp and Password login -->
                         <div class="flex justify-center mb-6">
                             <div class="bg-gray-100 p-1 rounded-lg inline-flex">
                                 <button type="button"
-                                    @click="isOtpMode = false"
+                                    @click="isOtpMode = false; otpSent = false; otpMessage = ''; otpError = ''"
                                     :class="!isOtpMode ? 'bg-white shadow-sm text-blue-600' : 'text-gray-500'"
                                     class="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200">
                                     Password
@@ -50,6 +95,22 @@
                             {{ session('error') }}
                         </div>
                         @endif
+
+                        <!-- OTP Success Message -->
+                        <div x-show="otpMessage" class="bg-green-50 text-green-600 p-3 rounded-lg mb-4 flex items-center text-sm">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span x-text="otpMessage"></span>
+                        </div>
+
+                        <!-- OTP Error Message -->
+                        <div x-show="otpError" class="bg-red-50 text-red-600 p-3 rounded-lg mb-4 flex items-center text-sm">
+                            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span x-text="otpError"></span>
+                        </div>
 
                         <!-- WhatsApp Number Field -->
                         <div class="mb-4">
@@ -119,7 +180,8 @@
                                     id="otp"
                                     name="otp"
                                     class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                    placeholder="Enter OTP sent to your WhatsApp">
+                                    placeholder="Enter OTP sent to your WhatsApp"
+                                    :disabled="!otpSent">
                             </div>
                             @error('otp')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -139,13 +201,12 @@
 
                         <!-- Submit Button -->
                         <button
-                            type="submit"
+                            type="button"
+                            x-show="isOtpMode && !otpSent"
+                            @click="requestOtp()"
                             class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center"
                             :class="{ 'opacity-75 cursor-not-allowed': isLoading }">
-                            <span x-show="!isLoading">
-                                <span x-show="!isOtpMode">Sign In</span>
-                                <span x-show="isOtpMode">Send OTP</span>
-                            </span>
+                            <span x-show="!isLoading">Send OTP</span>
                             <span x-show="isLoading" class="flex items-center">
                                 <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -154,6 +215,32 @@
                                 Processing...
                             </span>
                         </button>
+
+                        <button
+                            type="submit"
+                            x-show="!isOtpMode || (isOtpMode && otpSent)"
+                            class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-center"
+                            :class="{ 'opacity-75 cursor-not-allowed': isLoading }">
+                            <span x-show="!isLoading">Sign In</span>
+                            <span x-show="isLoading" class="flex items-center">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Processing...
+                            </span>
+                        </button>
+
+                        <!-- Resend OTP Button -->
+                        <div x-show="isOtpMode && otpSent" class="mt-2 text-center">
+                            <button
+                                type="button"
+                                @click="requestOtp()"
+                                class="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                :class="{ 'opacity-50 cursor-not-allowed': isLoading }">
+                                Resend OTP
+                            </button>
+                        </div>
                     </form>
 
                     <!-- Divider -->
