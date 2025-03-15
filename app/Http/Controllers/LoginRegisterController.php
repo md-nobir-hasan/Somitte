@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,7 +27,24 @@ class LoginRegisterController extends Controller
     public function registerAuthenticate(FrontendRegisterRequest $request)
     {
         $credentials = $request->validated();
-        dd($credentials);
+
+        // Upload photo
+        if($request->hasFile('photo')){
+            $photo = $request->file('photo');
+            $photoName = time().'.'.$photo->getClientOriginalExtension();
+            $path = $photo->storeAs('user-photos', $photoName, 'public');
+            $credentials['photo'] = $path;
+        }
+        // Password hash
+        $credentials['password'] = Hash::make($credentials['password']);
+
+        $user = User::create($credentials);
+        if($user){
+            Auth::login($user);
+            return redirect()->route('home')->with('success', 'Registration successful. Please login to continue.');
+        }else{
+            return back()->with('error', 'Registration failed. Please try again.');
+        }
     }
     /**
      * Handle OTP request for login
@@ -193,7 +211,7 @@ class LoginRegisterController extends Controller
 
         if (Auth::attempt(['whatsapp' => $credentials['whatsapp'], 'password' => $credentials['password']], $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->url('/');
+            return redirect()->route('home');
         }
 
         return back()->withErrors([

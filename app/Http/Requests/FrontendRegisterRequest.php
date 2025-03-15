@@ -28,14 +28,14 @@ class FrontendRegisterRequest extends FormRequest
            'present_address' => 'required|string|max:255',
            'occupation' => 'required|string|max:255',
            'occupation_sector' => 'required|string|max:255',
-           'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp,Jpeg|max:2048',
            'phone' => 'required|string|max:255',
            'whatsapp' => 'required|string|max:255|unique:users',
            'email' => 'required|string|email|max:255|unique:users',
            'password' => 'required|string|min:6',
            'password_confirmation' => 'required|string|min:6|same:password',
-           'designation' => 'required|string|max:255',
-           'department' => 'required|string|max:255',
+        //    'designation' => 'required|string|max:255',
+        //    'department' => 'required|string|max:255',
         ];
     }
 }
