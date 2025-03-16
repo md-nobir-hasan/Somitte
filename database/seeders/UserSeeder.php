@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,22 +17,38 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role Seeder
-        $role = [
-            [
-                'name' => 'Admin',
-                'guard_name' => 'web',
-            ],
-        ];
+        //User role seeder
+        Artisan::call('shield:install');
+        Artisan::call('shield:generate --all --panel="admin"');
 
-        DB::table('roles')->insert($role);
+        DB::table('roles')->insert([
+            'name' => 'user',
+            'guard_name' => 'web',
+        ]);
 
+         // সুপার অ্যাডমিন ইউজার তৈরি করা
+        $superAdmin = User::create([
+            'name' => 'Admin',
+            'batch' => '20',
+            'permanent_address' => 'Dhaka',
+            'present_address' => 'Dhaka',
+            'occupation' => 'Student',
+            'occupation_sector' => 'Student',
+            'photo' => '/asset/images/default/profile.webp',
+            'phone' => '01717171717',
+            'whatsapp' => '01717171717',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('1111'),
+            'role_id' => 1,
+            'designation' => 'Student',
+            'department' => 'ASVM',
+        ]);
+        $superAdmin->assignRole('super_admin'); // রোল অ্যাসাইন করা
 
-        // User Seeder
-        $data = [
-            [
-                'name' => 'Admin',
-                'batch' => '20',
+        // সাধারণ ইউজার তৈরি করা
+        $user = User::create([
+            'name' => 'User',
+                'batch' => '22',
                 'permanent_address' => 'Dhaka',
                 'present_address' => 'Dhaka',
                 'occupation' => 'Student',
@@ -37,14 +56,12 @@ class UserSeeder extends Seeder
                 'photo' => '/asset/images/default/profile.webp',
                 'phone' => '01717171717',
                 'whatsapp' => '01717171717',
-                'email' => 'admin@gmail.com',
+                'email' => 'user@gmail.com',
                 'password' => Hash::make('1111'),
-                'role_id' => 1,
+                'role_id' => 2,
                 'designation' => 'Student',
                 'department' => 'ASVM',
-            ],
-        ];
-
-        DB::table('users')->insert($data);
+        ]);
+        $user->assignRole('user');
     }
 }
