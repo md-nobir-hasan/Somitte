@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         //User role seeder
-        Artisan::call('shield:install');
         Artisan::call('shield:generate --all --panel="admin"');
 
         DB::table('roles')->insert([
@@ -39,7 +38,7 @@ class UserSeeder extends Seeder
             'whatsapp' => '01717171717',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('1111'),
-            'role_id' => 1,
+            // 'role_id' => 1,
             'designation' => 'Student',
             'department' => 'ASVM',
         ]);
@@ -58,7 +57,7 @@ class UserSeeder extends Seeder
                 'whatsapp' => '01717171717',
                 'email' => 'user@gmail.com',
                 'password' => Hash::make('1111'),
-                'role_id' => 2,
+                // 'role_id' => 2,
                 'designation' => 'Student',
                 'department' => 'ASVM',
         ]);
