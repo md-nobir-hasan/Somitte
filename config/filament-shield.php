@@ -88,6 +88,4 @@ return [
         'enabled' => true,
     ],
 
-
-
 ];

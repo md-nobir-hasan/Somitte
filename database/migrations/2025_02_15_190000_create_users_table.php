@@ -15,18 +15,26 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->foreignId('role_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('batch')->nullable();
+            $table->string('permanent_address')->nullable();
+            $table->string('present_address')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('occupation_sector')->nullable();
+            $table->string('photo')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('email')->nullable()->unique();
 
-            //Company info
-            $table->string('company_name')->nullable();
-            $table->string('company_address')->nullable();
-            $table->string('domain')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('department')->nullable();
+
+            $table->foreignId('role_id')->nullable()->constrained()->cascadeOnDelete();
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

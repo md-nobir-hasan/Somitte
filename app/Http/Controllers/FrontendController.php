@@ -11,6 +11,7 @@ class FrontendController extends Controller
         return view('frontend.pages.home');
     }
 
+
     public function associationMembers()
     {
         $n['members'] = ['nobir', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad', 'sakib', 'sami', 'sajjad'];
