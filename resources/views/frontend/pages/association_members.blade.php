@@ -104,18 +104,7 @@
         </div>
     </section>
 
-    <!-- Join Us Section -->
-    <section class="py-16 bg-blue-50">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Want to Join Our Association?</h2>
-                <p class="text-lg text-gray-600 mb-8">We're always looking for dedicated individuals to join our community. Learn about the benefits of membership and how to apply.</p>
-                <a href="#" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
-                    Apply for Membership
-                </a>
-            </div>
-        </div>
-    </section>
+ 
 </main>
 @endsection
 

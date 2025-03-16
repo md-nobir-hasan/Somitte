@@ -16,16 +16,26 @@ class LoginRegisterController extends Controller
 {
     public function loginPage()
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
         return view('frontend.pages.auths.login');
     }
 
     public function registerPage()
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
         return view('frontend.pages.auths.register');
     }
 
     public function registerAuthenticate(FrontendRegisterRequest $request)
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+
         $credentials = $request->validated();
 
         // Upload photo
@@ -54,6 +64,9 @@ class LoginRegisterController extends Controller
      */
     public function requestOtp(Request $request)
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
         // Validate the request
         $validator = Validator::make($request->all(), [
             'whatsapp' => 'required|string',
@@ -201,6 +214,10 @@ class LoginRegisterController extends Controller
      */
     public function loginAuthenticate(FrontendLoginRequest $request)
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+
         $credentials = $request->validated();
         // Check if login is via OTP
         if ($request->has('otp') && $request->otp) {
@@ -227,6 +244,10 @@ class LoginRegisterController extends Controller
      */
     private function authenticateWithOtp(Request $request)
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+
         $whatsapp = $request->whatsapp;
         $otp = $request->otp;
 
