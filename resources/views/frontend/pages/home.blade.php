@@ -74,7 +74,7 @@
             x-init="startAutoplay()"
             @mouseenter="stopAutoplay()"
             @mouseleave="startAutoplay()"
-            class="relative h-[500px] overflow-hidden">
+            class="relative h-[210px] sm:h-[300px] md:h-[350px] lg:h-[450px] overflow-hidden">
 
             <!-- Slides with enhanced transitions -->
             <template x-for="(slide, index) in slides" :key="index">
